@@ -39,7 +39,13 @@ class deepCopy{
 
     deepCopy& operator=(const deepCopy& rhs){
         cout<<"overloaded assignment operator called\n";
-        *a = *(rhs.a);  // Without this garbage value is present
+
+        if(this != &rhs){  // SELF ASSIGNMENT CHECK - without this, 
+            delete a;  // deallocate old memory
+
+            a = new int;  // allocate new space
+            *a = *(rhs.a);  // copy value
+        }
 
         return *this;
     }
